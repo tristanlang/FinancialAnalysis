@@ -12,11 +12,9 @@ filings = d.getElementsByTagName('item')
 for filing in filings:
     period = filing.getElementsByTagName('edgar:period')[0].firstChild.nodeValue
     zipurl = filing.getElementsByTagName('enclosure').item(0).getAttribute('url')
-    zipcontents = requests.get(zipurl)
-    z = zipfile.ZipFile(BytesIO(zipcontents.content))
-    
-    # need to extract ticker(?)(...i believe tik was one of the tickers i looked at)...from filing, and replace tik
-    f = z.open('tik-' + period + '.xml')
+    z = zipfile.ZipFile(BytesIO(requests.get(zipurl).content))
+
+    f = z.open(list(filter(lambda x: ('-%s.xml' % period) in x, z.namelist()))[0])
     secfiling = f.read() # string containing the full xbrl/xml of the filing
     f.close()
 
