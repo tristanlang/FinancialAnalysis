@@ -1,9 +1,9 @@
 from xml.dom import minidom
 import urllib.request
 import zipfile
-from io import StringIO
-import codecs
+from io import BytesIO
 
+# from the SEC RSS XML, get the zip files associated with the most recent filings
 contents = urllib.request.urlopen('https://www.sec.gov/Archives/edgar/usgaap.rss.xml').read()
 d = minidom.parseString(contents)
 filings = d.getElementsByTagName('item')
@@ -12,9 +12,11 @@ for filing in filings:
     period = filing.getElementsByTagName('edgar:period')[0].firstChild.nodeValue
     zipurl = filing.getElementsByTagName('enclosure').item(0).getAttribute('url')
     zipcontents = urllib.request.urlopen(zipurl)
-    z = zipfile.ZipFile(StringIO(zipcontents.read().decode('zip')))#codecs.iterdecode(zipcontents, 'utf-8')))#
+    z = zipfile.ZipFile(StringIO(r.content)))
     
     f = z.open('tik-' + period + '.xml')
-    secfiling = f.read()
+    secfiling = f.read() # string containing the full xbrl/xml of the filing
     f.close()
 
+    # next step is to use this minidom to process the XBRL files that have been obtained from the SEC RSS XML
+    d = minidom.parseString(secfiling)
