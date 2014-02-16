@@ -1,3 +1,8 @@
+'''
+Convert SEC EDGAR CIK number to ticker symbol
+Source: http://www.cornerofberkshireandfairfax.ca/forum/general-discussion/sec-edgar-gurus-(and-financial-programmers)/
+'''
+
 import urllib
 import urllib2
 import re
