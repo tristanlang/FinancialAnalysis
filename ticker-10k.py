@@ -55,3 +55,17 @@ for filing in filings:
     '''
 
     nodes = [x for x in d.childNodes[1].childNodes if not x.nodeValue]
+
+    '''
+    GRAHAM RULES
+    1.  An earnings-to-price yield of twice the triple-A bond yield. The earnings yield is the reciprocal of the price earnings ratio.
+    2.  A price/earnings ratio down to four-tenths of the highest average P/E ratio the stock reached in the most recent five years. (Average P/E ratio is the average stock price for a year divided by the earnings for that year.)
+    3.  A dividend yield of two-thirds of the triple-A bond yield.
+    4.  A stock price down to two-thirds of tangible book value per share.
+    5.  A stock price down to two-thirds of net current asset value — current assets less total debt.
+    6.  Total debt less than tangible book value.
+    7.  Current ratio (current assets divided by current liabilities) of two or more.
+    8.  Total debt equal or less than twice the net quick liquidation value as defined in No. 5.
+    9.  Earnings growth over the most recent ten years of seven percent compounded—a doubling of earnings in a ten-year period.
+    10. Stability of growth in earnings—defined as no more than two declines of five percent or more in year-end earnings over the most recent ten years.
+    '''
