@@ -20,3 +20,38 @@ for filing in filings:
 
     # next step is to use this minidom to process the XBRL files that have been obtained from the SEC RSS XML
     d = minidom.parseString(secfiling)
+
+    '''
+    XBRL structure appears to be in the following format:
+    <xbrl>
+        <comment node />
+        <data node>
+            <SEC filing data type 1>value</SEC filing data type 1>
+            <SEC filing data type 2>value</SEC filing data type 2>
+            <SEC filing data type 3>value</SEC filing data type 3>
+            ...
+            ...
+            <SEC filing data type N>value</SEC filing data type N>
+        </data node>
+    </xbrl>
+
+
+    The node values can generally be accessed in the following manner:
+
+        for node in [x for x in d.childNodes[1].childNodes if not x.nodeValue]:
+            node.firstChild.nodeValue
+    
+    Where d is at the <xbrl> level, above.
+    
+    Some of the nodeValues are Text/HTML, which are used for explanations. These nodes
+    generally have <<node.tagName>> values that contain words like "TextBlock", "Policy",
+    "Use", or "Text", and they are typically over 100 characters in length.
+
+    Some of the nodes do not have <<node.firstChild>> values because they do not wrap any
+    numerical or text values and instead are one line XML tags. Thus far it seems that there
+    are not many of these tags and they can be safely ignored, although one tag does seem to
+    be a reference/link to a schema (.xsd) used by filing company, possibly for their internal
+    schema definitions.
+    '''
+
+    nodes = [x for x in d.childNodes[1].childNodes if not x.nodeValue]
